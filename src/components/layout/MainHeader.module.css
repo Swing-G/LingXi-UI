@@ -1,104 +1,142 @@
 .header {
+  position: relative;
   display: flex;
   flex-direction: column;
-  gap: 24px;
-  padding: 32px;
-  background: linear-gradient(135deg, rgba(255, 214, 168, 0.6) 0%, rgba(255, 240, 216, 0.85) 100%);
-  border-radius: 32px;
-  box-shadow: 0 20px 48px rgba(255, 150, 68, 0.16);
+  gap: 18px;
+  padding: 26px 30px;
+  background:
+    linear-gradient(135deg, rgba(255, 253, 249, 0.92), rgba(247, 239, 227, 0.82)),
+    radial-gradient(circle at 100% 0%, rgba(184, 104, 50, 0.12), transparent 38%);
+  border: 1px solid rgba(67, 57, 45, 0.1);
+  border-radius: 28px;
+  box-shadow: var(--shadow-soft);
+  overflow: hidden;
+}
+
+.header::after {
+  content: "";
+  position: absolute;
+  right: 32px;
+  bottom: -72px;
+  width: 180px;
+  height: 180px;
+  border-radius: 50%;
+  border: 1px solid rgba(143, 77, 39, 0.12);
+  pointer-events: none;
 }
 
 .topRow {
+  position: relative;
+  z-index: 1;
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: space-between;
-  gap: 24px;
+  gap: 32px;
 }
 
 .titles {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 10px;
+  max-width: 720px;
 }
 
 .headline {
-  font-size: 28px;
-  font-weight: 700;
+  font-size: clamp(24px, 2.4vw, 34px);
+  line-height: 1.12;
+  font-weight: 720;
   color: var(--color-text-strong);
+  letter-spacing: -0.04em;
 }
 
 .subtitle {
-  font-size: 16px;
+  max-width: 62ch;
+  font-size: 15px;
+  line-height: 1.7;
   color: var(--color-text-muted);
 }
 
 .tabs {
+  position: relative;
+  z-index: 1;
   display: flex;
   flex-wrap: wrap;
-  gap: 12px;
+  gap: 10px;
 }
 
 .tab {
-  padding: 10px 20px;
-  border-radius: 999px;
-  background: rgba(255, 255, 255, 0.7);
+  min-height: 40px;
+  padding: 9px 16px;
+  border-radius: 12px;
+  background: rgba(255, 253, 249, 0.62);
   color: var(--color-text);
-  font-size: 15px;
-  font-weight: 500;
+  font-size: 14px;
+  font-weight: 650;
   display: inline-flex;
   align-items: center;
   gap: 10px;
   cursor: pointer;
-  transition: all 0.22s ease;
-  border: 1px solid transparent;
-  backdrop-filter: blur(6px);
+  transition: transform 240ms var(--ease-out), background 240ms var(--ease-out), border-color 240ms var(--ease-out), color 240ms var(--ease-out);
+  border: 1px solid rgba(67, 57, 45, 0.1);
 }
 
 .tab:hover {
   transform: translateY(-1px);
-  box-shadow: 0 10px 22px rgba(255, 138, 65, 0.18);
+  background: var(--color-surface);
 }
 
 .tabActive {
-  background: linear-gradient(135deg, rgba(255, 148, 67, 0.95) 0%, rgba(255, 114, 32, 0.95) 100%);
-  color: #fff;
-  border-color: rgba(255, 114, 32, 0.55);
-  box-shadow: 0 16px 36px rgba(255, 120, 54, 0.32);
+  background: #24211d;
+  color: #fffdf9;
+  border-color: rgba(36, 33, 29, 0.7);
 }
 
 .filters {
+  position: relative;
+  z-index: 1;
   display: flex;
-  gap: 12px;
+  gap: 10px;
   align-items: center;
+  flex-wrap: wrap;
 }
 
 .filterButton {
-  padding: 8px 18px;
-  border-radius: 12px;
-  border: 1px solid rgba(255, 138, 65, 0.28);
-  background: rgba(255, 255, 255, 0.65);
+  min-height: 36px;
+  padding: 8px 14px;
+  border-radius: 10px;
+  border: 1px solid rgba(67, 57, 45, 0.12);
+  background: rgba(255, 253, 249, 0.64);
   color: var(--color-text-muted);
-  font-weight: 500;
+  font-weight: 650;
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition: transform 220ms var(--ease-out), background 220ms var(--ease-out), color 220ms var(--ease-out);
+}
+
+.filterButton:hover {
+  transform: translateY(-1px);
+  background: var(--color-surface);
+  color: var(--color-text-strong);
 }
 
 .filterButtonActive {
-  border-color: transparent;
-  background: var(--color-primary-strong);
-  color: #fff;
-  box-shadow: 0 10px 24px rgba(255, 138, 65, 0.28);
+  border-color: rgba(36, 33, 29, 0.7);
+  background: #24211d;
+  color: #fffdf9;
 }
 
 .extras {
+  position: relative;
+  z-index: 1;
   display: flex;
   align-items: center;
-  gap: 16px;
+  gap: 14px;
+  flex-shrink: 0;
 }
 
 @media (max-width: 900px) {
   .header {
-    padding: 24px;
+    padding: 20px;
+    border-radius: 22px;
   }
 
   .topRow {

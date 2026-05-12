@@ -64,7 +64,7 @@ const RegisterPage = () => {
     <div className={styles.page}>
       <div className={styles.card}>
         <div className={styles.titleBlock}>
-          <h1 className={styles.title}>加入知光</h1>
+          <h1 className={styles.title}>加入灵析</h1>
           <p className={styles.subtitle}>使用手机号和密码注册账号</p>
         </div>
 

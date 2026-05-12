@@ -307,7 +307,7 @@ const CourseDetailPage = () => {
                 </button>
               </div>
               <div className={styles.ragHint}>
-                说明：仅“公开”知文支持问答，答案基于当前知文的索引片段实时生成。
+                说明：仅“公开”内容支持问答，答案基于当前内容的索引片段实时生成。
               </div>
               {ragError ? (
                 <div style={{ color: "var(--color-danger)" }}>{ragError}</div>
@@ -365,7 +365,7 @@ const CourseDetailPage = () => {
               >
                 <ArrowRightIcon width={24} height={24} />
               </button>
-              <button type="button" className={styles.closeButton} onClick={(e) => { e.stopPropagation(); setPreviewOpen(false); }} aria-label="关闭">✕</button>
+              <button type="button" className={styles.closeButton} onClick={(e) => { e.stopPropagation(); setPreviewOpen(false); }} aria-label="关闭">关</button>
             </div>
           </div>
         ) : null}

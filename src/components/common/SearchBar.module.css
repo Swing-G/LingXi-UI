@@ -2,17 +2,24 @@
   display: flex;
   align-items: center;
   gap: 12px;
-  padding: 12px 18px;
-  border-radius: 999px;
-  background: rgba(255, 255, 255, 0.82);
-  box-shadow: inset 0 0 0 1px rgba(255, 138, 65, 0.2);
+  padding: 8px 8px 8px 16px;
+  border-radius: 16px;
+  background: rgba(255, 253, 249, 0.86);
+  border: 1px solid rgba(67, 57, 45, 0.12);
   color: var(--color-text-muted);
   width: 100%;
   position: relative;
+  transition: border-color 220ms var(--ease-out), background 220ms var(--ease-out);
+}
+
+.wrapper:focus-within {
+  border-color: rgba(143, 77, 39, 0.34);
+  background: var(--color-surface);
 }
 
 .input {
   flex: 1;
+  min-width: 0;
   border: none;
   background: transparent;
   outline: none;
@@ -25,47 +32,53 @@
 }
 
 .button {
-  padding: 10px 20px;
-  border-radius: 999px;
-  background: var(--color-primary-strong);
-  color: #fff;
+  min-height: 40px;
+  padding: 10px 18px;
+  border-radius: 12px;
+  background: #24211d;
+  color: #fffdf9;
   border: none;
   cursor: pointer;
-  font-weight: 600;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  font-weight: 650;
+  transition: transform 220ms var(--ease-out), background 220ms var(--ease-out);
 }
 
 .button:hover {
   transform: translateY(-1px);
-  box-shadow: 0 12px 24px rgba(255, 138, 65, 0.22);
+  background: var(--color-primary-strong);
 }
 
-/* 联想抽屉下拉 */
+.button:active {
+  transform: scale(0.985);
+}
+
 .dropdown {
   position: absolute;
   left: 0;
   top: calc(100% + 8px);
   width: 100%;
-  background: #fff;
-  border-radius: 20px;
-  box-shadow: 0 18px 42px rgba(26, 26, 44, 0.1);
-  padding: 8px 0;
+  background: var(--color-surface);
+  border: 1px solid rgba(67, 57, 45, 0.12);
+  border-radius: 18px;
+  box-shadow: 0 18px 42px rgba(65, 50, 32, 0.12);
+  padding: 8px;
   max-height: 360px;
   overflow-y: auto;
   z-index: 10;
 }
 
 .dropdownItem {
-  padding: 12px 16px;
+  padding: 11px 12px;
+  border-radius: 10px;
   color: var(--color-text-strong);
   cursor: pointer;
 }
 
 .dropdownItem:hover {
-  background: rgba(26, 26, 44, 0.04);
+  background: rgba(36, 33, 29, 0.055);
 }
 
 .dropdownEmpty {
-  padding: 12px 16px;
+  padding: 11px 12px;
   color: var(--color-text-muted);
 }

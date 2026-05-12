@@ -52,12 +52,12 @@ const SearchPage = () => {
     <AppLayout
       header={
         <MainHeader
-          headline="搜索你想学习的知识"
-          subtitle="从提示词或你的历史记录开始探索，连接灵感与成长"
+          headline="技术检索"
+          subtitle="搜索方案、经验、踩坑记录和工程实践，快速定位可复用的判断。"
           rightSlot={<AuthStatus />}
         >
           <SearchBar
-            placeholder="搜索你想学习的知识..."
+            placeholder="搜索技术问题、框架、报错或实践经验..."
             value={q}
             suggestions={suggestions}
             suggestLoading={suggestLoading}

@@ -16,15 +16,30 @@
   background: transparent;
   cursor: pointer;
   user-select: none;
+  color: inherit;
+  transition: color 180ms var(--ease-out), transform 180ms var(--ease-out);
 }
 
-.btn:hover { color: var(--color-text); }
+.btn:hover {
+  color: var(--color-text-strong);
+  transform: translateY(-1px);
+}
 
-.liked { color: #e74c3c; }
-.faved { color: var(--color-primary-strong); }
+.btn:active {
+  transform: scale(0.96);
+}
+
+.liked {
+  color: var(--color-danger);
+}
+
+.faved {
+  color: var(--color-primary-strong);
+}
 
 .count {
   min-width: 10px;
+  font-variant-numeric: tabular-nums;
 }
 
 .compact .btn {

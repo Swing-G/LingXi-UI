@@ -17,7 +17,7 @@ const EditProfilePage = () => {
   const { user, tokens, /* refresh, logout, */ reloadUser } = useAuth();
   const navigate = useNavigate();
   const displayName = useMemo(
-    () => user?.nickname ?? user?.phone ?? user?.email ?? "知光用户",
+    () => user?.nickname ?? user?.phone ?? user?.email ?? "灵析用户",
     [user]
   );
 
@@ -92,7 +92,7 @@ const EditProfilePage = () => {
     }
   };
 
-  const avatarInitial = (displayName.trim().charAt(0) || "知").toUpperCase();
+  const avatarInitial = (displayName.trim().charAt(0) || "灵").toUpperCase();
 
   // 进入页面时请求 auth/me，预填表单；带取消标记避免登出后回写旧数据
   useEffect(() => {
@@ -155,7 +155,7 @@ const EditProfilePage = () => {
       header={
         <MainHeader
           headline="编辑个人资料"
-          subtitle="完善信息，帮助同学们更快认识你"
+          subtitle="完善技术方向、联系方式和个人介绍"
           rightSlot={<AuthStatus />}
         />
       }

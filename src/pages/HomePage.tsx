@@ -53,7 +53,8 @@ const HomePage = () => {
     <AppLayout
       header={
         <MainHeader
-          headline="知光 · 让思想有温度，让知识会发光"
+          headline="灵析"
+          subtitle="开发者技术互动平台。沉淀工程经验、分享技术判断，也让问题在讨论中更快被看清。"
           rightSlot={<AuthStatus />}
         />
       }
@@ -81,9 +82,9 @@ const HomePage = () => {
             />
           </div>
         ))}
-        {loading ? <div className={styles.masonryItem}><div>加载中…</div></div> : null}
+        {loading ? <div className={styles.masonryItem}><div className="ghost-button">正在加载</div></div> : null}
         {!loading && items.length === 0 ? (
-          <div className={styles.masonryItem}><div>暂无内容</div></div>
+          <div className={styles.masonryItem}><div className="ghost-button">暂无内容，先发布一篇技术笔记</div></div>
         ) : null}
       </div>
     </AppLayout>

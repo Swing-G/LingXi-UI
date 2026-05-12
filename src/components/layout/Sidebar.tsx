@@ -31,8 +31,8 @@ const Sidebar = () => {
       </nav>
       <div className={styles.divider} />
       <div className={styles.footer}>
-        <span>知光</span>
-        <div>让知识发光</div>
+        <span>灵析</span>
+        <div>开发者技术互动平台</div>
       </div>
     </aside>
   );

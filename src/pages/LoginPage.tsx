@@ -49,7 +49,7 @@ const LoginPage = () => {
       <div className={styles.card}>
         <div className={styles.titleBlock}>
           <h1 className={styles.title}>欢迎回来</h1>
-          <p className={styles.subtitle}>使用手机号和密码登录知光</p>
+          <p className={styles.subtitle}>使用手机号和密码登录灵析</p>
         </div>
 
         <form className={styles.form} onSubmit={handleSubmit}>
@@ -94,7 +94,7 @@ const LoginPage = () => {
               还没有账号？
               <button
                 type="button"
-                style={{ background: "none", border: "none", color: "var(--color-primary-strong)", fontWeight: 600, cursor: "pointer" }}
+                className={styles.inlineLink}
                 onClick={() => navigate("/register", { state: { from } })}
               >
                 前往注册

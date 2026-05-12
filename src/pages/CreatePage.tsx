@@ -134,7 +134,7 @@ const CreatePage = () => {
 
       // 5) 发布
       await knowpostService.publish(id);
-      setMessage("发布成功 ✅");
+      setMessage("发布成功");
     } catch (err) {
       const msg = err instanceof Error ? err.message : "发布失败";
       setError(msg);
@@ -146,7 +146,7 @@ const CreatePage = () => {
     // 切换开关；开启时触发生成
     if (!aiSummaryEnabled) {
       if (!tokens?.accessToken) {
-        setError("请先登录以使用 AI 摘要");
+        setError("请先登录以使用 智能摘要");
         return;
       }
       if (!content.trim()) {
@@ -161,7 +161,7 @@ const CreatePage = () => {
         const desc = (resp.description ?? "").slice(0, 50);
         setSummary(desc);
         setAiSummaryEnabled(true);
-        setMessage("AI 摘要已生成");
+        setMessage("智能摘要已生成");
       } catch (err) {
         const msg = err instanceof Error ? err.message : "生成失败";
         setError(msg);
@@ -177,14 +177,14 @@ const CreatePage = () => {
     <AppLayout
       header={
         <MainHeader
-          headline="创建新内容"
-          subtitle="分享你的知识，让更多人受益"
+          headline="发布技术内容"
+          subtitle="记录一个问题、一次排查、一套方案，给后来者留下清晰路径"
           rightSlot={<AuthStatus />}
         />
       }
     >
       <div className={styles.formCard}>
-        <SectionHeader title="基本信息" subtitle="精准描述你的内容，帮助同学快速了解" />
+        <SectionHeader title="内容信息" subtitle="把标题、摘要和标签写清楚，方便其他开发者快速判断价值" />
         <div className={styles.formGrid}>
           <div className={styles.field}>
             <label className={styles.label} htmlFor="title">
@@ -258,13 +258,13 @@ const CreatePage = () => {
             <div className={styles.fieldHeader}>
               <label className={styles.label} htmlFor="summary">知识摘要</label>
               <div className={styles.headActions}>
-                <span>AI 摘要</span>
+                <span>智能摘要</span>
                 <div
                   className={`${styles.inlineSwitch} ${aiSummaryEnabled ? styles.inlineSwitchOn : ""}`}
                   role="button"
                   tabIndex={0}
                   aria-pressed={aiSummaryEnabled}
-                  aria-label="AI 摘要开关"
+                  aria-label="智能摘要开关"
                   onClick={handleToggleAiSummary}
                   onKeyDown={(e) => { if (e.key === "Enter" || e.key === " ") handleToggleAiSummary(); }}
                 />

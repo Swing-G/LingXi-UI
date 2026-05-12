@@ -14,8 +14,8 @@ import RelationCounters from "@/components/common/RelationCounters";
 
 const ProfilePage = () => {
   const { user, tokens } = useAuth();
-  const displayName = user?.nickname ?? user?.phone ?? user?.email ?? "知光用户";
-  const avatarInitial = displayName.trim().charAt(0) || "知";
+  const displayName = user?.nickname ?? user?.phone ?? user?.email ?? "灵析用户";
+  const avatarInitial = displayName.trim().charAt(0) || "灵";
 
   // 领域标签展示：仅解析 tagJson
   const tags = useMemo(() => {
@@ -82,8 +82,8 @@ const ProfilePage = () => {
     <AppLayout
       header={
         <MainHeader
-          headline="我的知光主页"
-          subtitle="完善个人信息，积累你的知识资产"
+          headline="开发者主页"
+          subtitle="展示你的技术方向、公开内容和社区互动"
           rightSlot={<AuthStatus />}
         />
       }
@@ -91,7 +91,7 @@ const ProfilePage = () => {
       <>
         <SectionHeader
           title="个人信息"
-          subtitle="让同学们更快认识你"
+          subtitle="让其他开发者更快了解你的技术方向"
           actions={<Link to="/profile/edit" className="ghost-button">编辑资料</Link>}
         />
         <div className={styles.profileGrid}>
@@ -122,10 +122,10 @@ const ProfilePage = () => {
           </div>
         ) : null}
 
-        <SectionHeader title="我的知文" subtitle="仅显示你已发布的知文" />
+        <SectionHeader title="我的内容" subtitle="仅显示你已发布的技术内容" />
         {error ? <div style={{ color: "var(--color-danger)" }}>{error}</div> : null}
         {!user ? (
-          <div style={{ color: "var(--color-text-muted)", padding: 12 }}>请登录后查看你的知文</div>
+          <div style={{ color: "var(--color-text-muted)", padding: 12 }}>请登录后查看你的内容</div>
         ) : (
           <div className={feedStyles.masonry}>
             {items.map(item => (

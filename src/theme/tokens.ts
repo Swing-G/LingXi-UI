@@ -1,35 +1,36 @@
 export const colors = {
-  primary: "#ff8a41",
-  primaryStrong: "#ff7a22",
-  primaryLight: "#ffe1bf",
-  primarySoft: "#fff2e1",
-  success: "#12c07b",
-  info: "#4b85f1",
-  surface: "#ffffff",
-  surfaceSoft: "#fff6ea",
-  surfaceMuted: "#fff0de",
-  textStrong: "#1f1f33",
-  text: "#3a3a4a",
-  textMuted: "#76768a",
-  border: "rgba(255, 163, 88, 0.3)",
-  divider: "rgba(31, 31, 51, 0.08)"
+  primary: "#b86832",
+  primaryStrong: "#8f4d27",
+  primaryLight: "#ead6be",
+  primarySoft: "#f7efe3",
+  success: "#4d7f63",
+  info: "#536f8f",
+  danger: "#b94a42",
+  surface: "#fffdf9",
+  surfaceSoft: "#f7efe3",
+  surfaceMuted: "#eee2d2",
+  textStrong: "#24211d",
+  text: "#514b43",
+  textMuted: "#82796e",
+  border: "rgba(67, 57, 45, 0.12)",
+  divider: "rgba(36, 33, 29, 0.08)"
 };
 
 export const radii = {
   xs: "8px",
-  sm: "12px",
-  md: "16px",
-  lg: "24px",
-  xl: "32px"
+  sm: "10px",
+  md: "14px",
+  lg: "22px",
+  xl: "28px"
 };
 
 export const shadows = {
-  card: "0 16px 42px rgba(26, 26, 44, 0.08)",
-  soft: "0 14px 32px rgba(255, 138, 65, 0.18)"
+  card: "0 18px 42px rgba(65, 50, 32, 0.09)",
+  soft: "0 14px 40px rgba(65, 50, 32, 0.08)"
 };
 
 export const layout = {
-  sidebarWidth: 96,
-  maxPageWidth: 1280,
+  sidebarWidth: 104,
+  maxPageWidth: 1320,
   headerHeight: 88
 };
