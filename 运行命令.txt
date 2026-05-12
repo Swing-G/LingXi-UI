@@ -1,0 +1,12 @@
+首先打开管理员cmd
+（1）Win+r 
+（2）ctrl shift + enter 打开管理员cmd
+
+# 第一步：切换到 D 盘
+D:
+
+# 第二步：进入项目文件夹（路径和你之前的一致）
+cd D:\java_project\zhiguang\zhiguang_fe-main
+
+# 第三步 启动（直接启动就行）
+npm run dev
