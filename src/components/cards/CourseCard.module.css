@@ -2,20 +2,32 @@
   position: relative;
   display: flex;
   flex-direction: column;
-  gap: 16px;
-  padding: 14px;
-  border-radius: 22px;
-  background: rgba(255, 253, 249, 0.9);
-  border: 1px solid rgba(67, 57, 45, 0.1);
-  min-height: 240px;
+  gap: 14px;
+  padding: 12px;
+  border-radius: 14px;
+  background: rgba(255, 250, 242, 0.82);
+  border: 1px solid rgba(44, 39, 33, 0.16);
+  min-height: 220px;
   overflow: hidden;
-  transition: transform 260ms var(--ease-out), box-shadow 260ms var(--ease-out), border-color 260ms var(--ease-out);
+  transition: transform 240ms var(--ease-out), box-shadow 240ms var(--ease-out), border-color 240ms var(--ease-out);
+}
+
+.card::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 3px;
+  background: linear-gradient(90deg, var(--color-primary-strong), transparent 70%);
+  opacity: 0;
+  transition: opacity 240ms var(--ease-out);
 }
 
 .card a {
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 14px;
   height: 100%;
   color: inherit;
 }
@@ -26,14 +38,18 @@
 
 .card:hover {
   transform: translateY(-3px);
-  border-color: rgba(143, 77, 39, 0.26);
-  box-shadow: 0 20px 46px rgba(65, 50, 32, 0.11);
+  border-color: rgba(127, 62, 37, 0.36);
+  box-shadow: 0 18px 46px rgba(35, 30, 24, 0.13);
+}
+
+.card:hover::before {
+  opacity: 1;
 }
 
 .topBadge {
   position: absolute;
-  top: 12px;
-  left: 12px;
+  top: 10px;
+  left: 10px;
   z-index: 2;
   pointer-events: none;
 }
@@ -42,40 +58,40 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  font-size: 12px;
-  font-weight: 700;
-  padding: 4px 10px;
-  border-radius: 10px;
-  background: #24211d;
-  color: #fffdf9;
-  box-shadow: 0 10px 22px rgba(36, 33, 29, 0.18);
+  font-size: 11px;
+  font-weight: 800;
+  padding: 4px 8px;
+  border-radius: 7px;
+  background: #211f1b;
+  color: #fffaf2;
 }
 
 .content {
   display: grid;
   grid-template-columns: 1fr;
-  gap: 13px;
+  gap: 12px;
   margin-top: 0;
-  padding: 2px 4px 0;
+  padding: 0 2px;
 }
 
 .title {
-  font-size: 19px;
-  line-height: 1.25;
-  font-weight: 720;
+  font-size: 18px;
+  line-height: 1.28;
+  font-weight: 800;
   color: var(--color-text-strong);
+  letter-spacing: -0.035em;
 }
 
 .description {
-  font-size: 14px;
+  font-size: 13px;
   color: var(--color-text-muted);
   line-height: 1.72;
 }
 
 .description em {
   font-style: normal;
-  background: rgba(199, 163, 118, 0.22);
-  border-radius: 4px;
+  background: rgba(182, 95, 53, 0.14);
+  border-radius: 3px;
   padding: 0 2px;
   color: var(--color-text-strong);
 }
@@ -83,7 +99,7 @@
 .tagGroups {
   display: flex;
   flex-wrap: wrap;
-  gap: 8px;
+  gap: 7px;
 }
 
 .meta {
@@ -92,48 +108,50 @@
   align-items: center;
   justify-content: space-between;
   gap: 12px;
-  padding: 0 4px 2px;
+  padding: 0 2px 2px;
+  border-top: 1px solid rgba(44, 39, 33, 0.1);
+  padding-top: 12px;
 }
 
 .teacher {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 9px;
   min-width: 0;
 }
 
-.teacherAvatar {
-  width: 38px;
-  height: 38px;
-  border-radius: 14px;
-  display: grid;
-  place-items: center;
-  background: rgba(36, 33, 29, 0.06);
-  font-weight: 700;
-  color: var(--color-primary-strong);
+.teacherAvatar,
+.teacherAvatarImg {
+  width: 34px;
+  height: 34px;
+  border-radius: 9px;
   flex-shrink: 0;
 }
 
+.teacherAvatar {
+  display: grid;
+  place-items: center;
+  background: rgba(33, 31, 27, 0.08);
+  font-weight: 800;
+  color: var(--color-primary-strong);
+}
+
 .teacherAvatarImg {
-  width: 38px;
-  height: 38px;
-  border-radius: 14px;
   object-fit: cover;
   display: block;
-  flex-shrink: 0;
 }
 
 .teacherInfo {
   min-width: 0;
   display: flex;
   flex-direction: column;
-  font-size: 13px;
+  font-size: 12px;
   color: var(--color-text-muted);
 }
 
 .teacherName {
   color: var(--color-text-strong);
-  font-weight: 650;
+  font-weight: 750;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -142,12 +160,12 @@
 .authorTags {
   display: flex;
   flex-wrap: wrap;
-  gap: 6px;
-  margin-top: 4px;
+  gap: 5px;
+  margin-top: 3px;
 }
 
 .authorTag {
-  font-size: 12px;
+  font-size: 11px;
   color: var(--color-text-muted);
 }
 
@@ -169,27 +187,28 @@
   display: flex;
   align-items: center;
   justify-content: flex-start;
-  padding: 0 4px 2px;
+  padding: 0 2px 2px;
 }
 
 .cover {
   width: 100%;
-  border-radius: 17px;
+  border-radius: 10px;
   height: auto;
   display: block;
-  transition: transform 700ms var(--ease-out), filter 700ms var(--ease-out);
+  transition: transform 650ms var(--ease-out), filter 650ms var(--ease-out);
 }
 
 .coverWrap {
   position: relative;
   overflow: hidden;
-  border-radius: 17px;
+  border-radius: 10px;
   background: var(--color-surface-soft);
+  border: 1px solid rgba(44, 39, 33, 0.1);
 }
 
 .card:hover .cover {
   transform: scale(1.025);
-  filter: saturate(0.96) contrast(1.03);
+  filter: saturate(0.9) contrast(1.06);
 }
 
 .variantHorizontal {
@@ -208,30 +227,30 @@
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
-  width: 44px;
-  height: 44px;
+  width: 42px;
+  height: 42px;
   border-radius: 50%;
-  background: rgba(255, 253, 249, 0.9);
+  background: rgba(255, 250, 242, 0.9);
   display: grid;
   place-items: center;
   color: var(--color-primary-strong);
-  box-shadow: inset 0 0 0 1px rgba(67, 57, 45, 0.12), 0 10px 24px rgba(36, 33, 29, 0.14);
+  box-shadow: inset 0 0 0 1px rgba(44, 39, 33, 0.14), 0 10px 24px rgba(33, 31, 27, 0.14);
 }
 
 .menuButton {
   position: absolute;
-  top: 12px;
-  right: 12px;
+  top: 10px;
+  right: 10px;
   width: 30px;
   height: 30px;
-  border-radius: 10px;
+  border-radius: 8px;
   display: grid;
   place-items: center;
-  background: rgba(255, 253, 249, 0.82);
+  background: rgba(255, 250, 242, 0.82);
   color: var(--color-text-muted);
   cursor: pointer;
   z-index: 5;
-  border: 1px solid rgba(67, 57, 45, 0.1);
+  border: 1px solid rgba(44, 39, 33, 0.14);
   outline: none;
 }
 
@@ -241,18 +260,18 @@
 }
 
 .menuButton:focus {
-  box-shadow: 0 0 0 2px rgba(143, 77, 39, 0.24);
+  box-shadow: 0 0 0 2px rgba(127, 62, 37, 0.24);
 }
 
 .menuList {
   position: absolute;
-  top: 48px;
-  right: 12px;
+  top: 46px;
+  right: 10px;
   min-width: 160px;
   background: var(--color-surface);
-  border-radius: 14px;
-  box-shadow: 0 18px 42px rgba(65, 50, 32, 0.14);
-  border: 1px solid rgba(67, 57, 45, 0.12);
+  border-radius: 10px;
+  box-shadow: 0 18px 42px rgba(35, 30, 24, 0.16);
+  border: 1px solid rgba(44, 39, 33, 0.16);
   padding: 6px;
   z-index: 10;
 }
@@ -266,14 +285,14 @@
   font-size: 13px;
   color: var(--color-text-strong);
   padding: 9px 10px;
-  border-radius: 10px;
+  border-radius: 7px;
   background: transparent;
   border: none;
   cursor: pointer;
 }
 
 .menuItem:hover {
-  background: rgba(36, 33, 29, 0.055);
+  background: rgba(33, 31, 27, 0.07);
 }
 
 .menuDanger {

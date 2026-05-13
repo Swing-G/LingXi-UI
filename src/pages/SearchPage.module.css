@@ -3,50 +3,50 @@
   flex-direction: column;
   gap: 32px;
   padding: 24px 28px;
-  background: rgba(255, 253, 249, 0.86);
-  border: 1px solid rgba(67, 57, 45, 0.1);
-  border-radius: 24px;
-  box-shadow: var(--shadow-soft);
+  background: rgba(255, 250, 242, 0.78);
+  border: 1px solid rgba(44, 39, 33, 0.16);
+  border-radius: 16px;
+  box-shadow: 0 14px 38px rgba(35, 30, 24, 0.08);
 }
 
 .history {
   display: flex;
   flex-wrap: wrap;
-  gap: 12px;
+  gap: 10px;
 }
 
 .historyItem {
-  padding: 8px 14px;
-  border-radius: 10px;
-  background: rgba(255, 253, 249, 0.72);
-  border: 1px solid rgba(67, 57, 45, 0.12);
+  padding: 8px 12px;
+  border-radius: 8px;
+  background: rgba(255, 250, 242, 0.72);
+  border: 1px solid rgba(44, 39, 33, 0.16);
   color: var(--color-text-strong);
-  font-weight: 650;
+  font-weight: 720;
 }
 
 .suggestions {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 16px;
+  gap: 14px;
 }
 
 .suggestionCard {
   display: inline-flex;
   align-items: center;
   gap: 12px;
-  padding: 18px;
-  border-radius: 16px;
-  background: rgba(255, 253, 249, 0.86);
-  border: 1px solid rgba(67, 57, 45, 0.1);
-  font-weight: 650;
-  font-size: 16px;
+  padding: 16px;
+  border-radius: 12px;
+  background: rgba(255, 250, 242, 0.78);
+  border: 1px solid rgba(44, 39, 33, 0.16);
+  font-weight: 720;
+  font-size: 15px;
   color: var(--color-text-strong);
   transition: transform 220ms var(--ease-out), border-color 220ms var(--ease-out);
 }
 
 .suggestionCard:hover {
   transform: translateY(-2px);
-  border-color: rgba(143, 77, 39, 0.28);
+  border-color: rgba(127, 62, 37, 0.34);
 }
 
 .controls {
@@ -59,8 +59,8 @@
 .controlInput {
   height: 38px;
   padding: 7px 10px;
-  border-radius: 10px;
-  border: 1px solid rgba(67, 57, 45, 0.12);
+  border-radius: 8px;
+  border: 1px solid rgba(44, 39, 33, 0.16);
   background: var(--color-surface);
 }
 
@@ -72,14 +72,14 @@
 
 .resultItem {
   padding: 18px;
-  border-radius: 16px;
-  background: rgba(255, 253, 249, 0.9);
-  border: 1px solid rgba(67, 57, 45, 0.1);
+  border-radius: 12px;
+  background: rgba(255, 250, 242, 0.82);
+  border: 1px solid rgba(44, 39, 33, 0.16);
 }
 
 .resultTitle {
   font-size: 18px;
-  font-weight: 720;
+  font-weight: 800;
   color: var(--color-text-strong);
 }
 
@@ -90,20 +90,20 @@
 }
 
 .snippet em {
-  background: rgba(199, 163, 118, 0.22);
-  border-radius: 4px;
+  background: rgba(182, 95, 53, 0.14);
+  border-radius: 3px;
   padding: 0 2px;
 }
 
 .loadMoreBtn {
   align-self: center;
   border: none;
-  border-radius: 12px;
+  border-radius: 9px;
   padding: 11px 18px;
-  background: #24211d;
-  color: #fffdf9;
+  background: #211f1b;
+  color: #fffaf2;
   cursor: pointer;
-  font-weight: 700;
+  font-weight: 800;
   transition: transform 220ms var(--ease-out), background 220ms var(--ease-out);
 }
 
@@ -115,9 +115,9 @@
 .loginHint {
   margin-bottom: 12px;
   padding: 12px 14px;
-  border-radius: 14px;
-  border: 1px solid rgba(143, 77, 39, 0.16);
-  background: rgba(199, 163, 118, 0.13);
+  border-radius: 10px;
+  border: 1px solid rgba(127, 62, 37, 0.18);
+  background: rgba(182, 95, 53, 0.11);
   color: var(--color-primary-strong);
   font-size: 13px;
 }

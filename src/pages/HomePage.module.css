@@ -1,20 +1,154 @@
-.heroRow {
-  margin-bottom: 24px;
+.heroPanel {
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(340px, 0.85fr);
+  gap: 18px;
+  min-height: 320px;
+}
+
+.heroCopy,
+.heroBoard,
+.streamHeader,
+.stateBox {
+  border: 1px solid rgba(44, 39, 33, 0.16);
+  background: rgba(255, 250, 242, 0.78);
+  box-shadow: 0 16px 42px rgba(35, 30, 24, 0.08);
+}
+
+.heroCopy {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  gap: 18px;
+  padding: 34px;
+  border-radius: 18px;
+  overflow: hidden;
+}
+
+.heroCopy::before {
+  content: "";
+  position: absolute;
+  right: 34px;
+  top: 30px;
+  width: 86px;
+  height: 86px;
+  border: 1px solid rgba(33, 31, 27, 0.18);
+  transform: rotate(12deg);
+}
+
+.kicker {
+  color: var(--color-primary-strong);
+  font-size: 11px;
+  font-weight: 850;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+.heroCopy h2 {
+  max-width: 760px;
+  font-size: clamp(38px, 6.2vw, 86px);
+  line-height: 0.9;
+  letter-spacing: -0.075em;
+  font-weight: 850;
+}
+
+.heroCopy p {
+  max-width: 72ch;
+  color: var(--color-text-muted);
+  font-size: 15px;
+  line-height: 1.75;
+}
+
+.heroBoard {
+  border-radius: 18px;
+  padding: 18px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  gap: 10px;
+  background:
+    linear-gradient(180deg, rgba(33, 31, 27, 0.96), rgba(45, 39, 32, 0.94)),
+    var(--color-text-strong);
+  color: #fffaf2;
+  overflow: hidden;
+}
+
+.terminalTop,
+.terminalFoot {
+  font-family: "SF Mono", "JetBrains Mono", Consolas, monospace;
+  color: rgba(255, 250, 242, 0.58);
+  font-size: 12px;
+  letter-spacing: 0.04em;
+}
+
+.terminalTop {
+  margin-bottom: auto;
+  padding-bottom: 16px;
+  border-bottom: 1px solid rgba(255, 250, 242, 0.12);
+}
+
+.terminalLine {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-height: 44px;
+  padding: 0 12px;
+  border: 1px solid rgba(255, 250, 242, 0.12);
+  background: rgba(255, 250, 242, 0.045);
+  border-radius: 10px;
+  font-weight: 720;
+}
+
+.terminalLine span {
+  font-family: "SF Mono", "JetBrains Mono", Consolas, monospace;
+  color: #d18b5f;
+  font-size: 12px;
+}
+
+.terminalFoot {
+  margin-top: 8px;
+}
+
+.streamHeader {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 18px;
+  padding: 22px;
+  border-radius: 16px;
+}
+
+.streamHeader h2 {
+  margin-top: 6px;
+  font-size: 28px;
+  line-height: 1;
+  font-weight: 820;
+}
+
+.streamHeader p {
+  max-width: 42ch;
+  color: var(--color-text-muted);
+  font-size: 14px;
+  line-height: 1.65;
+  text-align: right;
 }
 
 .masonry {
   column-count: 4;
-  column-gap: 22px;
+  column-gap: 18px;
 }
 
 .masonryItem {
   break-inside: avoid;
   -webkit-column-break-inside: avoid;
-  margin-bottom: 22px;
+  margin-bottom: 18px;
 }
 
-.heroCard {
-  width: 100%;
+.stateBox {
+  padding: 18px;
+  border-radius: 14px;
+  color: var(--color-text-muted);
+  font-weight: 700;
 }
 
 @media (max-width: 1200px) {
@@ -24,12 +158,33 @@
 }
 
 @media (max-width: 1000px) {
+  .heroPanel {
+    grid-template-columns: 1fr;
+  }
+
   .masonry {
     column-count: 2;
   }
 }
 
 @media (max-width: 700px) {
+  .heroCopy {
+    padding: 24px;
+  }
+
+  .heroCopy h2 {
+    font-size: clamp(34px, 15vw, 56px);
+  }
+
+  .streamHeader {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .streamHeader p {
+    text-align: left;
+  }
+
   .masonry {
     column-count: 1;
   }
