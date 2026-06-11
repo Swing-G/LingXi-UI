@@ -9,10 +9,10 @@
   justify-content: space-between;
   gap: 12px;
   min-height: 52px;
-  border: 1px solid rgba(67, 57, 45, 0.12);
+  border: 1px solid rgba(44, 39, 33, 0.16);
   border-radius: 14px;
   padding: 14px 34px 14px 16px;
-  background: rgba(255, 253, 249, 0.78);
+  background: rgba(255, 250, 242, 0.72);
   font-size: 15px;
   color: var(--color-text-strong);
   cursor: pointer;
@@ -20,7 +20,7 @@
 }
 
 .box:hover {
-  border-color: rgba(143, 77, 39, 0.26);
+  border-color: rgba(127, 62, 37, 0.34);
   background: var(--color-surface);
 }
 
@@ -49,7 +49,7 @@
   overflow: auto;
   border-radius: 14px;
   background: var(--color-surface);
-  border: 1px solid rgba(67, 57, 45, 0.12);
+  border: 1px solid rgba(44, 39, 33, 0.16);
   box-shadow: 0 16px 36px rgba(65, 50, 32, 0.12);
   z-index: 20;
   padding: 6px;

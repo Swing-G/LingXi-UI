@@ -9,7 +9,7 @@
   border: 1px solid rgba(44, 39, 33, 0.16);
   border-radius: 18px;
   box-shadow: 0 14px 38px rgba(35, 30, 24, 0.08);
-  overflow: hidden;
+  overflow: visible;
 }
 
 .header::before {
@@ -32,6 +32,7 @@
   width: 4px;
   height: 100%;
   background: var(--color-primary-strong);
+  border-radius: 18px 0 0 18px;
   pointer-events: none;
 }
 
