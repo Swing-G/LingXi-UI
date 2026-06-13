@@ -13,6 +13,7 @@ import type { KnowpostDetailResponse } from "@/types/knowpost";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import LikeFavBar from "@/components/common/LikeFavBar";
+import { addHistory } from "@/services/readingHistory";
 import FollowButton from "@/components/common/FollowButton";
 
 const CourseDetailPage = () => {
@@ -20,18 +21,18 @@ const CourseDetailPage = () => {
   const navigate = useNavigate();
   const { tokens, user } = useAuth();
   const [detail, setDetail] = useState<KnowpostDetailResponse | null>(null);
-  const [activeImage, setActiveImage] = useState(0);
   const [contentText, setContentText] = useState<string>("");
   const [error, setError] = useState<string | null>(null);
   const [previewOpen, setPreviewOpen] = useState(false);
   const [previewIndex, setPreviewIndex] = useState(0);
-  const rowRef = useRef<HTMLDivElement | null>(null);
-  const [visibleCount, setVisibleCount] = useState<number>(0);
   const [contentError, setContentError] = useState<string | null>(null);
   const previewBoxRef = useRef<HTMLDivElement | null>(null);
   const [showNavLeft, setShowNavLeft] = useState(false);
   const [showNavRight, setShowNavRight] = useState(false);
   const [isTouch, setIsTouch] = useState(false);
+  // 图片轮播
+  const [carouselIndex, setCarouselIndex] = useState(0);
+  const [carouselAnimating, setCarouselAnimating] = useState(false);
   // RAG 问答状态
   const [ragQuestion, setRagQuestion] = useState<string>("");
   const [ragAnswer, setRagAnswer] = useState<string>("");
@@ -40,6 +41,10 @@ const CourseDetailPage = () => {
   const ragESRef = useRef<EventSource | null>(null);
   const [ragTopK, setRagTopK] = useState<number>(5);
   const [ragMaxTokens, setRagMaxTokens] = useState<number>(1024);
+  // 排队状态
+  const [queuePosition, setQueuePosition] = useState<number>(0);
+  const [queueTotal, setQueueTotal] = useState<number>(0);
+  const [isQueuing, setIsQueuing] = useState<boolean>(false);
   // 从头像 URL 推断作者 ID（示例：.../avatars/3-xxxx.jpg → 3）
   const parseAvatarUserId = (url?: string): number | undefined => {
     if (!url) return undefined;
@@ -56,7 +61,14 @@ const CourseDetailPage = () => {
         const resp = await knowpostService.detail(id, tokens?.accessToken ?? undefined);
         if (cancelled) return;
         setDetail(resp);
-        setActiveImage(0);
+        // 记录浏览历史
+        addHistory({
+          id: resp.id,
+          title: resp.title,
+          authorNickname: resp.authorNickname ?? "",
+          coverImage: resp.images?.[0],
+          tags: resp.tags ?? [],
+        });
         // 异步加载正文内容
         if (resp.contentUrl) {
           const allowAnonymous = resp.visible === "public";
@@ -85,22 +97,6 @@ const CourseDetailPage = () => {
     run();
     return () => { cancelled = true; };
   }, [id, tokens?.accessToken]);
-
-  // 计算一行可展示的图片数量
-  useEffect(() => {
-    const calc = () => {
-      const el = rowRef.current;
-      if (!el) return;
-      const width = el.clientWidth;
-      const itemW = 180;
-      const gap = 12;
-      const count = Math.max(1, Math.floor((width + gap) / (itemW + gap)));
-      setVisibleCount(count);
-    };
-    calc();
-    window.addEventListener("resize", calc);
-    return () => window.removeEventListener("resize", calc);
-  }, [detail?.images]);
 
   useEffect(() => {
     const touch = "ontouchstart" in window || navigator.maxTouchPoints > 0;
@@ -154,6 +150,9 @@ const CourseDetailPage = () => {
     }
     setRagError(null);
     setRagAnswer("");
+    setQueuePosition(0);
+    setQueueTotal(0);
+    setIsQueuing(false);
     // 关闭之前的连接
     if (ragESRef.current) {
       try { ragESRef.current.close(); } catch {}
@@ -163,12 +162,61 @@ const CourseDetailPage = () => {
     const es = new EventSource(url);
     ragESRef.current = es;
     setRagLoading(true);
+
+    // 默认消息处理：答案内容
     es.onmessage = (e) => {
-      setRagAnswer((prev) => prev + (e.data ?? ""));
+      if (e.data) {
+        setRagError(null);
+        setRagAnswer((prev) => prev + e.data);
+      }
     };
-    es.onerror = () => {
+
+    // 排队事件
+    es.addEventListener("queued", (e: MessageEvent) => {
+      try {
+        const d = JSON.parse(e.data);
+        setQueuePosition(d.position ?? 0);
+        setIsQueuing(true);
+      } catch {}
+    });
+    es.addEventListener("position", (e: MessageEvent) => {
+      try {
+        const d = JSON.parse(e.data);
+        setQueuePosition(d.position ?? 0);
+        setQueueTotal(d.totalWaiting ?? 0);
+      } catch {}
+    });
+    es.addEventListener("ready", () => {
+      setIsQueuing(false);
+    });
+    es.addEventListener("timeout", (e: MessageEvent) => {
+      setRagError("排队超时，请稍后重试");
       setRagLoading(false);
-      // 不展示“连接中断或后端异常”，静默关闭连接
+      setIsQueuing(false);
+      try { es.close(); } catch {}
+      ragESRef.current = null;
+    });
+    es.addEventListener("error", (e: Event) => {
+      const msg = e as MessageEvent;
+      if (msg.data && typeof msg.data === "string") {
+        try {
+          const d = JSON.parse(msg.data);
+          setRagError(d.message ?? "请求失败");
+        } catch {
+          setRagError("请求失败，请稍后重试");
+        }
+      }
+      setRagLoading(false);
+      setIsQueuing(false);
+      try { es.close(); } catch {}
+      ragESRef.current = null;
+    });
+
+    es.onerror = () => {
+      if (!isQueuing) {
+        setRagLoading(false);
+      }
+      setIsQueuing(false);
       try { es.close(); } catch {}
       ragESRef.current = null;
     };
@@ -180,6 +228,7 @@ const CourseDetailPage = () => {
       ragESRef.current = null;
     }
     setRagLoading(false);
+    setIsQueuing(false);
   };
 
   useEffect(() => {
@@ -206,21 +255,74 @@ const CourseDetailPage = () => {
       <article className={styles.detailCard}>
         {error ? <div style={{ color: "var(--color-danger)" }}>{error}</div> : null}
         {detail?.images?.length ? (
-          <div ref={rowRef} className={styles.imageRow}>
-            {(detail.images.slice(0, visibleCount)).map((src, idx) => {
-              const isLastVisible = idx === visibleCount - 1 && detail.images.length > visibleCount;
-              return (
-                <div key={src + idx} className={styles.imageItem} onClick={() => openPreview(idx)}>
-                  <img className={styles.image} src={src} alt={detail.title} />
-                  {isLastVisible ? (
-                    <div className={styles.moreBadge}>+{detail.images.length - visibleCount}</div>
-                  ) : null}
+          <div className={styles.carousel}>
+            <div className={styles.carouselTrack}>
+              <div
+                className={styles.carouselSlides}
+                style={{
+                  transform: `translateX(-${carouselIndex * 100}%)`,
+                  transition: carouselAnimating ? "transform 420ms cubic-bezier(0.22, 1, 0.36, 1)" : "none",
+                }}
+              >
+                {detail.images.map((src, idx) => (
+                  <div key={src + idx} className={styles.carouselSlide} onClick={() => openPreview(idx)}>
+                    <img className={styles.carouselImage} src={src} alt={`${detail.title} ${idx + 1}`} />
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {detail.images.length > 1 ? (
+              <>
+                <button
+                  type="button"
+                  className={`${styles.carouselBtn} ${styles.carouselBtnLeft}`}
+                  aria-label="上一张"
+                  onClick={() => {
+                    if (carouselAnimating) return;
+                    setCarouselAnimating(true);
+                    setCarouselIndex(prev => (prev === 0 ? detail.images.length - 1 : prev - 1));
+                    setTimeout(() => setCarouselAnimating(false), 420);
+                  }}
+                >
+                  <ArrowRightIcon width={22} height={22} style={{ transform: "rotate(180deg)" }} />
+                </button>
+                <button
+                  type="button"
+                  className={`${styles.carouselBtn} ${styles.carouselBtnRight}`}
+                  aria-label="下一张"
+                  onClick={() => {
+                    if (carouselAnimating) return;
+                    setCarouselAnimating(true);
+                    setCarouselIndex(prev => (prev === detail.images.length - 1 ? 0 : prev + 1));
+                    setTimeout(() => setCarouselAnimating(false), 420);
+                  }}
+                >
+                  <ArrowRightIcon width={22} height={22} />
+                </button>
+
+                <div className={styles.carouselDots}>
+                  {detail.images.map((_, idx) => (
+                    <button
+                      key={idx}
+                      type="button"
+                      className={`${styles.carouselDot} ${idx === carouselIndex ? styles.carouselDotActive : ""}`}
+                      aria-label={`跳到第 ${idx + 1} 张`}
+                      onClick={() => {
+                        if (carouselAnimating) return;
+                        setCarouselAnimating(true);
+                        setCarouselIndex(idx);
+                        setTimeout(() => setCarouselAnimating(false), 420);
+                      }}
+                    />
+                  ))}
                 </div>
-              );
-            })}
-            {detail.images.length <= visibleCount
-              ? null
-              : null}
+
+                <div className={styles.carouselCounter}>
+                  {carouselIndex + 1} / {detail.images.length}
+                </div>
+              </>
+            ) : null}
           </div>
         ) : null}
         <div className={styles.titleBlock}>
@@ -228,7 +330,11 @@ const CourseDetailPage = () => {
           <div className={styles.meta}>
             {detail?.authorAvatar ? (
               <img className={styles.authorAvatar} src={detail.authorAvatar} alt={detail.authorNickname} />
-            ) : null}
+            ) : (
+              <div className={styles.authorAvatarFallback}>
+                {(detail?.authorNickname ?? "灵").charAt(0)}
+              </div>
+            )}
             <span className={styles.authorName}>{detail?.authorNickname ?? ""}</span>
             {(() => {
               const derivedId = detail?.authorId ?? parseAvatarUserId(detail?.authorAvatar);
@@ -313,7 +419,20 @@ const CourseDetailPage = () => {
                 <div style={{ color: "var(--color-danger)" }}>{ragError}</div>
               ) : null}
               <div className={styles.ragAnswer}>
-                {ragAnswer ? (
+                {isQueuing ? (
+                  <div className={styles.ragPlaceholder}>
+                    <div style={{ fontWeight: 720, color: "var(--color-text-strong)", marginBottom: 6 }}>
+                      ⏳ 排队等待中
+                    </div>
+                    <div style={{ fontSize: 13 }}>
+                      前面还有 <strong>{queuePosition}</strong> 人
+                      {queueTotal > 0 ? `（共 ${queueTotal} 人排队）` : ""}
+                    </div>
+                    <div style={{ fontSize: 12, color: "var(--color-text-muted)", marginTop: 4 }}>
+                      获取槽位后将自动开始生成…
+                    </div>
+                  </div>
+                ) : ragAnswer ? (
                   <div className={styles.markdown}>
                     <ReactMarkdown
                       remarkPlugins={[remarkGfm]}

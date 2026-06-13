@@ -62,10 +62,48 @@ const RegisterPage = () => {
 
   return (
     <div className={styles.page}>
+      {/* 左侧装饰区 */}
+      <div className={styles.hero}>
+        <div className={styles.heroInner}>
+          <div className={styles.brandRow}>
+            <div className={styles.brandMark} aria-hidden="true" />
+            <span className={styles.brandKicker}>LINGXI · DEV FORUM</span>
+          </div>
+
+          <h1 className={styles.heroTitle}>
+            加入灵析
+            <span className={styles.heroTitleAccent}>.</span>
+          </h1>
+          <p className={styles.heroSub}>
+            注册账号，开始发布技术内容、参与讨论，构建你的工程知识体系。
+          </p>
+
+          <div className={styles.featureList}>
+            <div className={styles.featureItem}>
+              <div className={styles.featureIcon}>01</div>
+              <span>创建技术文章，沉淀排查过程与架构决策</span>
+            </div>
+            <div className={styles.featureItem}>
+              <div className={styles.featureIcon}>02</div>
+              <span>全文检索社区内容，快速找到可复用的经验</span>
+            </div>
+            <div className={styles.featureItem}>
+              <div className={styles.featureIcon}>03</div>
+              <span>AI 辅助问答，基于文章内容智能解答</span>
+            </div>
+            <div className={styles.featureItem}>
+              <div className={styles.featureIcon}>04</div>
+              <span>关注感兴趣的开发者，建立技术人脉</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* 右侧注册表单 */}
       <div className={styles.card}>
         <div className={styles.titleBlock}>
-          <h1 className={styles.title}>加入灵析</h1>
-          <p className={styles.subtitle}>使用手机号和密码注册账号</p>
+          <h1 className={styles.title}>创建账号</h1>
+          <p className={styles.subtitle}>使用手机号和密码注册</p>
         </div>
 
         <form className={styles.form} onSubmit={handleSubmit}>
@@ -110,7 +148,6 @@ const RegisterPage = () => {
               placeholder="请再次输入密码"
               autoComplete="new-password"
             />
-            <span className={styles.tips}>短信注册验证码接口已保留，后续接入短信服务后可恢复校验。</span>
           </div>
 
           <div className={styles.field}>

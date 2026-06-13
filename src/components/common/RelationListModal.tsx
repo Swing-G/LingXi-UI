@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
+import { createPortal } from "react-dom";
 import styles from "./RelationListModal.module.css";
 import { relationService } from "@/services/relationService";
 import { useAuth } from "@/context/AuthContext";
@@ -83,7 +84,7 @@ const RelationListModal = ({ open, onClose, userId, mode }: RelationListModalPro
 
   if (!open) return null;
 
-  return (
+  return createPortal(
     <div className={styles.overlay} onClick={onClose}>
       <div className={styles.modal} onClick={e => e.stopPropagation()}>
         <div className={styles.header}>
@@ -115,7 +116,8 @@ const RelationListModal = ({ open, onClose, userId, mode }: RelationListModalPro
           </button>
         </div>
       </div>
-    </div>
+    </div>,
+    document.body
   );
 };
 

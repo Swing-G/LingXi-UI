@@ -2,9 +2,12 @@
   width: 100%;
   min-height: 100dvh;
   display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(400px, 480px);
+  grid-template-columns: minmax(0, 1fr) minmax(400px, 460px);
   align-items: stretch;
-  padding: 28px;
+  padding: 28px 48px;
+  gap: 88px;
+  max-width: 1200px;
+  margin: 0 auto;
   background:
     linear-gradient(rgba(33, 31, 27, 0.035) 1px, transparent 1px),
     linear-gradient(90deg, rgba(33, 31, 27, 0.03) 1px, transparent 1px),
@@ -13,16 +16,108 @@
   background-size: 36px 36px, 36px 36px, auto, auto;
 }
 
-.page::before {
-  content: "LINGXI";
-  align-self: end;
-  max-width: 760px;
-  color: var(--color-text-strong);
-  font-size: clamp(54px, 12vw, 160px);
+/* ─── 左侧装饰区 ─── */
+
+.hero {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 20px 40px 40px;
+}
+
+.heroInner {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+  max-width: 520px;
+}
+
+.brandRow {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.brandMark {
+  width: 32px;
+  height: 32px;
+  border-radius: 7px;
+  background: #211f1b;
+  display: grid;
+  place-items: center;
+  position: relative;
+}
+
+.brandMark::after {
+  content: "";
+  width: 18px;
+  height: 18px;
+  border: 2px solid #fffaf2;
+  border-radius: 2px 7px 7px 7px;
+  transform: rotate(135deg);
+}
+
+.brandKicker {
+  color: var(--color-primary-strong);
+  font-size: 11px;
+  font-weight: 850;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+.heroTitle {
+  font-size: clamp(52px, 8vw, 96px);
   line-height: 0.82;
   font-weight: 900;
-  letter-spacing: -0.105em;
+  color: var(--color-text-strong);
+  letter-spacing: -0.08em;
+  margin: 0;
 }
+
+.heroTitleAccent {
+  color: var(--color-primary-strong);
+}
+
+.heroSub {
+  max-width: 48ch;
+  font-size: 15px;
+  line-height: 1.8;
+  color: var(--color-text-muted);
+}
+
+/* ─── 功能列表 ─── */
+
+.featureList {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.featureItem {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  font-size: 14px;
+  color: var(--color-text);
+  line-height: 1.6;
+}
+
+.featureIcon {
+  width: 36px;
+  height: 36px;
+  border-radius: 9px;
+  display: grid;
+  place-items: center;
+  background: rgba(33, 31, 27, 0.06);
+  border: 1px solid rgba(44, 39, 33, 0.1);
+  font-size: 12px;
+  font-weight: 800;
+  font-family: "SF Mono", "JetBrains Mono", monospace;
+  color: var(--color-text-muted);
+  flex-shrink: 0;
+}
+
+/* ─── 右侧注册卡片 ─── */
 
 .card {
   align-self: center;
@@ -75,8 +170,7 @@
   color: var(--color-text-strong);
 }
 
-.input,
-.select {
+.input {
   border: 1px solid rgba(44, 39, 33, 0.16);
   border-radius: 10px;
   padding: 14px 15px;
@@ -87,45 +181,9 @@
   transition: border-color 220ms var(--ease-out), background 220ms var(--ease-out);
 }
 
-.input:focus,
-.select:focus {
+.input:focus {
   border-color: rgba(127, 62, 37, 0.38);
   background: var(--color-surface);
-}
-
-.select {
-  -webkit-appearance: none;
-  appearance: none;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%237f3e25' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
-  background-repeat: no-repeat;
-  background-position: right 12px center;
-  background-size: 14px;
-  padding-right: 36px;
-}
-
-.codeRow {
-  display: flex;
-  gap: 12px;
-}
-
-.codeRow input {
-  flex: 1;
-}
-
-.codeButton {
-  min-width: 120px;
-  border-radius: 9px;
-  border: 1px solid rgba(44, 39, 33, 0.16);
-  background: rgba(255, 250, 242, 0.9);
-  color: var(--color-text-strong);
-  font-weight: 720;
-  cursor: pointer;
-  padding: 0 16px;
-}
-
-.codeButton:disabled {
-  cursor: not-allowed;
-  opacity: 0.6;
 }
 
 .actions {
@@ -175,12 +233,6 @@
   cursor: pointer;
 }
 
-.tips {
-  font-size: 12px;
-  line-height: 1.6;
-  color: var(--color-text-muted);
-}
-
 .checkboxRow {
   display: flex;
   align-items: flex-start;
@@ -220,10 +272,15 @@
   .page {
     grid-template-columns: 1fr;
     padding: 18px;
+    gap: 18px;
   }
 
-  .page::before {
-    font-size: 58px;
+  .hero {
+    padding: 24px 12px;
+  }
+
+  .heroTitle {
+    font-size: 48px;
   }
 
   .card {

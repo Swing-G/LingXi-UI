@@ -1,71 +1,86 @@
-.emptyCard {
-  position: relative;
+.historyList {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) 160px;
-  align-items: end;
-  gap: 28px;
-  padding: 42px;
-  border-radius: 18px;
-  background:
-    linear-gradient(135deg, rgba(255, 250, 242, 0.82), rgba(231, 218, 200, 0.68));
-  border: 1px solid rgba(44, 39, 33, 0.16);
-  box-shadow: 0 16px 42px rgba(35, 30, 24, 0.08);
-  text-align: left;
-  overflow: hidden;
+  grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+  gap: 10px;
 }
 
-.emptyCard::after {
-  content: "";
-  position: absolute;
-  right: -44px;
-  top: -44px;
-  width: 180px;
-  height: 180px;
-  border: 1px solid rgba(33, 31, 27, 0.16);
-  transform: rotate(18deg);
-}
-
-.icon {
-  width: 120px;
-  height: 120px;
+.historyItem {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 14px 16px;
   border-radius: 12px;
-  background: #211f1b;
-  display: grid;
-  place-items: center;
-  color: #fffaf2;
-  font-size: 0;
-  box-shadow: inset 0 0 0 1px rgba(255, 250, 242, 0.16), 0 18px 34px rgba(33, 31, 27, 0.16);
+  background: rgba(255, 250, 242, 0.72);
+  border: 1px solid rgba(44, 39, 33, 0.14);
+  color: inherit;
+  transition: transform 220ms var(--ease-out), border-color 220ms var(--ease-out), box-shadow 220ms var(--ease-out);
 }
 
-.icon::before {
-  content: "";
-  width: 54px;
-  height: 38px;
-  border: 2px solid currentColor;
-  border-radius: 2px 10px 10px 2px;
-  border-left-width: 10px;
+.historyItem:hover {
+  transform: translateY(-2px);
+  border-color: rgba(127, 62, 37, 0.3);
+  box-shadow: 0 12px 32px rgba(35, 30, 24, 0.1);
 }
 
-.title {
-  margin-bottom: 12px;
-  font-size: clamp(30px, 4.5vw, 54px);
-  line-height: 0.95;
-  font-weight: 850;
+.historyCover {
+  width: 56px;
+  height: 56px;
+  border-radius: 8px;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+
+.historyCoverPlaceholder {
+  width: 56px;
+  height: 56px;
+  border-radius: 8px;
+  background: rgba(33, 31, 27, 0.06);
+  border: 1px solid rgba(44, 39, 33, 0.1);
+  flex-shrink: 0;
+}
+
+.historyMeta {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 0;
+}
+
+.historyTitle {
+  font-size: 14px;
+  font-weight: 750;
   color: var(--color-text-strong);
-  letter-spacing: -0.065em;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
-.description {
-  max-width: 48ch;
-  margin-bottom: 20px;
-  font-size: 15px;
-  line-height: 1.7;
+.historyAuthor {
+  font-size: 12px;
   color: var(--color-text-muted);
 }
 
+.historyTime {
+  font-size: 11px;
+  color: var(--color-text-disabled, #a69c91);
+}
+
+.emptyHint {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  padding: 34px 24px;
+  border-radius: 14px;
+  background: rgba(255, 250, 242, 0.62);
+  border: 1px solid rgba(44, 39, 33, 0.12);
+  color: var(--color-text-muted);
+  font-size: 14px;
+  text-align: center;
+}
+
 @media (max-width: 760px) {
-  .emptyCard {
+  .historyList {
     grid-template-columns: 1fr;
-    padding: 28px;
   }
 }
