@@ -15,6 +15,7 @@ import remarkGfm from "remark-gfm";
 import LikeFavBar from "@/components/common/LikeFavBar";
 import { addHistory } from "@/services/readingHistory";
 import FollowButton from "@/components/common/FollowButton";
+import Avatar from "@/components/common/Avatar";
 
 const CourseDetailPage = () => {
   const { id } = useParams<{ id: string }>();
@@ -328,13 +329,7 @@ const CourseDetailPage = () => {
         <div className={styles.titleBlock}>
           <div className={styles.titleRow}></div>
           <div className={styles.meta}>
-            {detail?.authorAvatar ? (
-              <img className={styles.authorAvatar} src={detail.authorAvatar} alt={detail.authorNickname} />
-            ) : (
-              <div className={styles.authorAvatarFallback}>
-                {(detail?.authorNickname ?? "灵").charAt(0)}
-              </div>
-            )}
+            <Avatar src={detail?.authorAvatar} name={detail?.authorNickname ?? "灵"} size={36} />
             <span className={styles.authorName}>{detail?.authorNickname ?? ""}</span>
             {(() => {
               const derivedId = detail?.authorId ?? parseAvatarUserId(detail?.authorAvatar);

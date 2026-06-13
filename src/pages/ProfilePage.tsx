@@ -11,6 +11,7 @@ import CourseCard from "@/components/cards/CourseCard";
 import LikeFavBar from "@/components/common/LikeFavBar";
 import { knowpostService } from "@/services/knowpostService";
 import RelationCounters from "@/components/common/RelationCounters";
+import Avatar from "@/components/common/Avatar";
 
 const ProfilePage = () => {
   const { user, tokens } = useAuth();
@@ -96,11 +97,7 @@ const ProfilePage = () => {
         />
         <div className={styles.profileGrid}>
           <div className={styles.avatarBox}>
-            {user?.avatar ? (
-              <img src={user.avatar} alt="avatar" className={styles.avatarImg} />
-            ) : (
-              <span>{avatarInitial}</span>
-            )}
+            <Avatar src={user?.avatar} name={displayName} size={116} />
           </div>
           <div className={styles.infoBox}>
             <div className={styles.nickname}>{displayName}</div>

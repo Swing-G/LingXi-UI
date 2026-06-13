@@ -1,3 +1,4 @@
+import Avatar from "./Avatar";
 import styles from "./UserBadge.module.css";
 
 type UserBadgeProps = {
@@ -6,18 +7,10 @@ type UserBadgeProps = {
   avatarUrl?: string;
 };
 
-const getInitial = (value: string) => value.trim().charAt(0).toUpperCase() || "?";
-
 const UserBadge = ({ name, alias, avatarUrl }: UserBadgeProps) => {
   return (
     <div className={styles.badge}>
-      <div className={styles.avatar}>
-        {avatarUrl ? (
-          <img src={avatarUrl} alt="avatar" className={styles.avatarImg} />
-        ) : (
-          getInitial(name)
-        )}
-      </div>
+      <Avatar src={avatarUrl} name={name} size={36} />
       <div className={styles.meta}>
         <span className={styles.name}>{name}</span>
         {alias ? <span className={styles.alias}>{alias}</span> : null}

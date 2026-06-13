@@ -4,6 +4,7 @@ import MainHeader from "@/components/layout/MainHeader";
 import SectionHeader from "@/components/common/SectionHeader";
 import TagInput from "@/components/common/TagInput";
 import AuthStatus from "@/features/auth/AuthStatus";
+import Avatar from "@/components/common/Avatar";
 import { useAuth } from "@/context/AuthContext";
 import { profileService } from "@/services/profileService";
 import { authService } from "@/services/authService";
@@ -172,12 +173,8 @@ const EditProfilePage = () => {
 
         <div className={styles.grid}>
           <div className={styles.avatarPanel}>
-            <div className={styles.avatarPreview} onClick={onAvatarClick} role="button" aria-label="点击上传头像" tabIndex={0}>
-              {avatarUrl ? (
-                <img src={avatarUrl} alt="avatar" className={styles.avatarImg} />
-              ) : (
-                <span>{avatarInitial}</span>
-              )}
+            <div onClick={onAvatarClick} role="button" aria-label="点击上传头像" tabIndex={0} style={{ cursor: "pointer" }}>
+              <Avatar src={avatarUrl} name={displayName} size={136} />
             </div>
             {/* 隐藏的文件输入，由点击头像触发 */}
             <input ref={fileInputRef} id="avatar" type="file" accept="image/*" onChange={onAvatarFileChange} style={{ display: "none" }} />
@@ -194,7 +191,7 @@ const EditProfilePage = () => {
               <input id="phone" className={styles.input} value={phone} onChange={e => setPhone(e.target.value)} placeholder="绑定手机号方便联系" />
             </div>
             <div className={styles.field}>
-              <label className={styles.label} htmlFor="zgId">知光 ID</label>
+              <label className={styles.label} htmlFor="zgId">灵析 ID</label>
               <input id="zgId" className={styles.input} value={zgId} onChange={e => setZgId(e.target.value)} placeholder="用于个性化主页地址" />
             </div>
             <div className={styles.field}>

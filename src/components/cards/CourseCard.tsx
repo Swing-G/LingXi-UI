@@ -3,6 +3,7 @@ import type { ReactNode } from "react";
 import clsx from "clsx";
 import { Link } from "react-router-dom";
 import Tag from "@/components/common/Tag";
+import Avatar from "@/components/common/Avatar";
 import { HeartIcon } from "@/components/icons/Icon";
 import { useAuth } from "@/context/AuthContext";
 import { knowpostService } from "@/services/knowpostService";
@@ -210,11 +211,7 @@ const CourseCard = ({
 
       <div className={styles.meta}>
         <div className={styles.teacher}>
-          {teacher.avatarUrl ? (
-            <img className={styles.teacherAvatarImg} src={teacher.avatarUrl} alt={teacher.name} />
-          ) : (
-            <div className={styles.teacherAvatar}>{teacher.avatarText ?? (teacher.name?.charAt(0) || "?")}</div>
-          )}
+          <Avatar src={teacher.avatarUrl} name={teacher.name} size={34} />
           <div className={styles.teacherInfo}>
             <span className={styles.teacherName}>{teacher.name}</span>
             {authorTags?.length ? (
