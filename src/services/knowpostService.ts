@@ -193,13 +193,13 @@ function sha256Pure(bytes: Uint8Array): Uint8Array {
 
 export async function computeSha256(file: File) {
   const buf = await file.arrayBuffer();
-  let digest: ArrayBuffer;
+  let digest: ArrayBuffer | Uint8Array;
   try {
     // 优先用浏览器原生 crypto（HTTPS / localhost 可用）
-    digest = await crypto.subtle.digest("SHA-256", buf);
+    digest = new Uint8Array(await crypto.subtle.digest("SHA-256", buf));
   } catch {
     // HTTP 环境 crypto.subtle 不可用，走纯 JS 实现
-    digest = sha256Pure(new Uint8Array(buf)).buffer;
+    digest = sha256Pure(new Uint8Array(buf));
   }
   const hex = Array.from(new Uint8Array(digest)).map(b => b.toString(16).padStart(2, "0")).join("");
   return hex;
