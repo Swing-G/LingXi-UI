@@ -2,7 +2,7 @@ name: Deploy Frontend
 
 on:
   push:
-    branches: [master]
+    branches: [main]
 
 jobs:
   deploy:
@@ -11,7 +11,7 @@ jobs:
       - name: Pull latest code
         run: |
           cd /opt/frontend
-          git pull origin master
+          git pull origin main
 
       - name: Install & Build
         run: |
