@@ -1,5 +1,5 @@
 import { NavLink } from "react-router-dom";
-import { CreateIcon, HomeIcon, ProfileIcon, SearchIcon, SparkIcon, StudyIcon } from "@/components/icons/Icon";
+import { CreateIcon, HomeIcon, ProfileIcon, SearchIcon, StudyIcon } from "@/components/icons/Icon";
 import styles from "./Sidebar.module.css";
 
 const navItems = [
@@ -14,7 +14,7 @@ const Sidebar = () => {
   return (
     <aside className={styles.sidebar}>
       <div className={styles.logo}>
-        <SparkIcon width={30} height={30} stroke="none" fill="#fff" />
+        <img src="/lingxi-logo.png" alt="灵析" className={styles.logoImg} />
       </div>
       <nav className={styles.nav}>
         {navItems.map(({ to, label, Icon }) => (
